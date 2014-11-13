@@ -1,0 +1,13 @@
+{
+	"name" :"Il va pleuvoir ?",
+	"version" :"1.0",
+	"manifest_version": 2,
+	"description" :"Pour savoir si il va pleuvoir !",
+	"browser_action" :
+	{
+		"default_popup" :"popup.html"
+	},
+	"permissions": [
+		"http://www.meteofrance.com/"
+	]
+}
