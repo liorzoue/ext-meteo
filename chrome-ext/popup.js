@@ -2,7 +2,9 @@ var MeteoApp = angular.module('MeteoApp', []);
 
 MeteoApp.controller('MeteoCtrl', function ($scope, $http) {
 	$scope.villeID = '352380';
+	// $scope.villeID = '292320';
 	$http.get('http://www.meteofrance.com/mf3-rpc-portlet/rest/pluie/'+$scope.villeID).success(function(data) {
+		$scope.datas = {};
 		$scope.datas = data.dataCadran;
 		$scope.niveauPluieText = data.niveauPluieText;
 		$scope.lastUpdate = data.lastUpdate;
@@ -11,13 +13,12 @@ MeteoApp.controller('MeteoCtrl', function ($scope, $http) {
 		
 		var badge = ":)";
 		var color = "5F5";
-		
 		for(i=0;i<12;i++) {
 			if ($scope.datas[i].niveauPluie > 1) {
 				$scope.prochainePrecipitation = $scope.datas[i];
 				$scope.prochainePrecipitation.time = i*5+10;
 				badge = $scope.prochainePrecipitation.time + "m";
-				color = "F00";
+				color = $scope.prochainePrecipitation.color;
 				break;
 			}
 		}

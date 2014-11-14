@@ -14,8 +14,8 @@
 				Prochaine pluie dans : {{prochainePrecipitation.time}}min !
 			</p>
 			
-			<p>
-				Force : {{prochainePrecipitation.niveauPluie-1}}
+			<p class="grey">
+				{{prochainePrecipitation.niveauPluieText}}
 			</p>
 		</div>
 		<div ng-if="prochainePrecipitation.time==undefined">

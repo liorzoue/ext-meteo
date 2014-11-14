@@ -97,3 +97,7 @@ h2 {
 .detail-text {
 	margin-left: 1rem;
 }
+
+.grey {
+	color: grey;
+}
