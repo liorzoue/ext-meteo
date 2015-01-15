@@ -8,21 +8,23 @@
 </head>
 <body ng-controller="MeteoCtrl">
 	<main>
+	
 	<div class="card">
-		<div ng-if="prochainePrecipitation.time!=undefined">
-			<p>
-				Prochaine pluie dans : {{prochainePrecipitation.time}}min !
-			</p>
-			
-			<p class="grey">
-				{{prochainePrecipitation.niveauPluieText}}
-			</p>
-		</div>
-		<div ng-if="prochainePrecipitation.time==undefined">
-			<p>
-				Pas de pluie prévue dans l'heure ! :)
-			</p>
-		</div>
+		<p ng-if="prochainePrecipitation.time!=undefined">
+			<span class="" ng-repeat="line in resume">
+				{{line}}<br/>
+			</span>
+		</p>
+		
+		<p ng-if="prochainePrecipitation.time==undefined">
+			Pas de pluie prévue dans l'heure ! :)
+		</p>
+
+		<p class="grey">
+			Mise à jour : {{lastUpdate}}
+			<br/>
+			Source : Meteo France
+		</p>
 	</div>
 	
 	<div class="card">
@@ -35,10 +37,6 @@
 			{{data.niveauPluieText}}
 			</div>
 		</div>
-	</div>
-	
-	<div class="card">
-		<p class="last-update">Mise à jour : {{lastUpdate}}</p>
 	</div>
 	
 	</main>
