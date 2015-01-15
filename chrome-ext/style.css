@@ -4,27 +4,16 @@
 
 body { background:#d5d5d5; margin: 0; }
 
-
 main {
   display:block;
   position:relative;
-  width:20rem;
+  width:17rem;
   margin:0 auto;
   padding:0.5rem 0 0;
   background:#d5d5d5;
   outline
   border-radius:.25rem;
   overflow:hidden;
-}
-
-header {
-  position:absolute;
-  z-index:0;
-  top:0; left:0; right:0;
-  height:10rem;
-  transition:transform .5s, opacity .3s;
-  background:url(http://www.droid-life.com/wp-content/uploads/2013/01/googlenownewyork.png)  center center;
-  background-size:cover;
 }
 
 .card {
@@ -43,20 +32,6 @@ header {
  transform-origin:top right;
 }
 
-@keyframes fly-in-from-left {
-  from {
-    transform:translateY(15rem) rotate(15deg);
-    opacity:0;
-  }
-}
-
-@keyframes fly-in-from-right {
-  from {
-    transform:translateY(15rem) rotate(-15deg);
-    opacity:0;
-  }
-}
-
 h1 {
   font-size:2rem;
   font-weight:200;
@@ -71,13 +46,6 @@ h2 {
   line-height:2.5;
   color:gray;
   font-weight:400;
-}
-
-.map {
-  background:whitesmoke;
-  margin:.25rem 0 0 -0.75rem;
-  width:18rem;
-  padding: 0.5rem;
 }
 
 .item {
