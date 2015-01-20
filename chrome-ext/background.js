@@ -31,8 +31,8 @@ var get_data = function (callback) {
 					if (data.response.dataCadran[i].niveauPluie > 1) {
 						data.prochainePrecipitation = data.response.dataCadran[i];
 						data.prochainePrecipitation.time = i*5+10;
-						data.badge.text = data.response.dataCadran.prochainePrecipitation.time + "m";
-						data.badge.color = data.response.dataCadran.prochainePrecipitation.color;
+						data.badge.text = data.prochainePrecipitation.time + "m";
+						data.badge.color = data.prochainePrecipitation.color;
 						break;
 					}
 				}
