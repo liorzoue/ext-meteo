@@ -1,13 +1,18 @@
 {
-	"name" :"Il va pleuvoir ?",
-	"version" :"1.0",
+	"name" :"Pluie dans l'heure",
+	"version" :"1.2.1",
 	"manifest_version": 2,
-	"description" :"Pour savoir si il va pleuvoir !",
+	"description" :"Pour savoir s'il va pleuvoir dans l'heure.",
 	"browser_action" :
 	{
 		"default_popup" :"popup.html"
 	},
 	"permissions": [
+		"storage",
 		"http://www.meteofrance.com/"
-	]
+	],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	}
 }

@@ -2,12 +2,12 @@
 
 * { font-family: 'Roboto', sans-serif; line-height:1.2; vertical-align:middle; }
 
-body { background:#d5d5d5; margin: 0; }
+body { background:#d5d5d5; margin: 0; height: auto; }
 
 main {
   display:block;
   position:relative;
-  width:17rem;
+  width:18rem;
   margin:0 auto;
   padding:0.5rem 0 0;
   background:#d5d5d5;
@@ -17,7 +17,6 @@ main {
 }
 
 .card {
-  padding:0.75rem;
   box-shadow:0 1px 2px #aaa;
   background:white;
   margin:0 0.5rem 0.5rem;
@@ -26,26 +25,52 @@ main {
   animation:fly-in-from-left .5s 1s ease both;
   transform-origin:top left;
 }
-.card:nth-child(even){
-  animation-name:fly-in-from-right;
-  animation-delay:1.1s;
- transform-origin:top right;
+
+.card-child {
+	padding: 0.75rem;
+}
+
+.card-child:nth-child(2) {
+	border-top: 1px solid #aaa;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+.list-hover 
+{
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	margin-left: -0.75rem;
+	padding: 0.4rem 0.75rem;
+}
+.list-hover:hover {
+	background:#ddd;
+}
+
+.circle {
+	display: block;
+	border: 1px solid #aaa;
+	border-radius: 50%;
+	width: 0.9rem;
+	float: right;
+	text-align: center;
+	cursor: pointer;
 }
 
 h1 {
-  font-size:2rem;
+  font-size:1.2rem;
   font-weight:200;
+  text-align: center;
 }
-  strong {
-    font-weight:300;
-    color:#539D00;
-  }
 
-h2 {
-  font-size:.9rem;
-  line-height:2.5;
-  color:gray;
-  font-weight:400;
+input.material {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #777;
+	outline: none;
 }
 
 .item {
@@ -68,4 +93,9 @@ h2 {
 
 .grey {
 	color: grey;
+}
+
+.error {
+	border: solid 1px #A00;
+	background: #FEE;
 }

@@ -1,46 +1,80 @@
 var MeteoApp = angular.module('MeteoApp', []);
 
 MeteoApp.controller('MeteoCtrl', function ($scope, $http) {
-	var villeID = '352380',
-		APIUrl = 'http://www.meteofrance.com/mf3-rpc-portlet/rest/pluie/';
-		
-	$http.get(APIUrl + villeID).success(function(data) {
 
-		$scope.datas = data.dataCadran;
-		$scope.resume = data.niveauPluieText;
-		$scope.niveauPluieText = data.niveauPluieText;
-		$scope.lastUpdate = data.lastUpdate;
+	$scope.setParameters = function (id, libelle) {
+		if (!id || !libelle) { return; }
 		
-		$scope.prochainePrecipitation = [];
-		
-		var badge = ":)";
-		var color = "5F5";
-		
-		for(i=0;i<12;i++) {
-			if ($scope.datas[i].niveauPluie > 1) {
-				$scope.prochainePrecipitation = $scope.datas[i];
-				$scope.prochainePrecipitation.time = i*5+10;
-				badge = $scope.prochainePrecipitation.time + "m";
-				color = $scope.prochainePrecipitation.color;
-				break;
-			}
+		try {
+			chrome.storage.sync.set({
+				'villeID': id,
+				'villeLibelle': libelle, 
+				'used': true
+			}, function() { });
+		} catch (err) {
+			$scope.error = { hasError: true, message: 'Chrome storage write error.' };
+			$scope.$apply();
+			console.log(err);
 		}
-		
-		chrome.browserAction.setBadgeText({text: badge });
-		chrome.browserAction.setBadgeBackgroundColor({ color: '#'+color });
+	};
+	
+	$scope.run = function () {
+		try {
+			chrome.extension.getBackgroundPage().get_data(function (data) {
+				$scope.results = [];
+				$scope.query = '';
+				$scope.villeLibelle = data.villeLibelle;
+				$scope.showParam = data.showParam;
+				$scope.error = data.error;
 				
-	});
+				if (data.response) {
+					$scope.datas = data.response.dataCadran;
+					$scope.resume = data.response.niveauPluieText;
+					$scope.niveauPluieText = data.response.niveauPluieText;
+					$scope.lastUpdate = data.response.lastUpdate;
+				}
+				
+				$scope.$apply();
+			});
+		} catch (err) {
+			$scope.error = { hasError: true, message: 'run error' };
+			$scope.$apply();
+			console.log(err);
+		}
+	};
+	
+	$scope.findTown = function (query) {
+		console.log('query: ' + query);
+		$scope.results = [];
+		if (query.length == 0) { return; }
+		
+		try {
+			$http.get(chrome.extension.getBackgroundPage().APIPluieFind + query).success(function(data) {
+				if (data.length == 0) { return; }
+				$scope.results = data;
+				console.log($scope.results.length);
+			});
+		} catch (err) {
+			$scope.error = { hasError: true, message: 'Search error.' };
+			$scope.$apply();
+			console.log(err);
+		}
+	};
 
+	$scope.selectTown = function (id, libelle) {
+		$scope.setParameters(id, libelle);
+		
+		$scope.villeLibelle = libelle;
+		$scope.showParam = false;
+		$scope.results = [];
+		
+		$scope.run();
+	};
+	
+	$scope.toggleParam = function () {
+		$scope.showParam=!$scope.showParam;
+	};
+
+	$scope.run();
+	
 });
-
-/*
-	Recherche d'une ville
-	http://www.meteofrance.com/mf3-rpc-portlet/rest/lieu/facet/previsions_metropole/search/xxx
-	
-	Recherche d'une ville
-	! Résultat couverts par "Pluie dans l'heure" uniquement
-	http://www.meteofrance.com/mf3-rpc-portlet/rest/lieu/facet/pluie/search/xxx
-	
-	Pluie dans l'heure
-	http://www.meteofrance.com/mf3-rpc-portlet/rest/pluie/IDVILLE
-*/

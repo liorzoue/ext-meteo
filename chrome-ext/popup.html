@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html ng-app="MeteoApp">
 <head>
+	<meta charset="UTF-8">
 	<script src="angular.min.js"></script>
 	<script src="popup.js"></script>
 	
@@ -10,31 +12,56 @@
 	<main>
 	
 	<div class="card">
-		<p ng-if="prochainePrecipitation.time!=undefined">
-			<span class="" ng-repeat="line in resume">
-				{{line}}<br/>
-			</span>
-		</p>
-		
-		<p ng-if="prochainePrecipitation.time==undefined">
-			Pas de pluie prévue dans l'heure ! :)
-		</p>
+		<div class="card-child" ng-if="villeLibelle">
+			<span class="circle" ng-click="toggleParam()">i</span>
+			<h1>{{villeLibelle}}</h1>
+		</div>
 
-		<p class="grey">
-			Mise à jour : {{lastUpdate}}
-			<br/>
-			Source : Meteo France
-		</p>
+		<div class="card-child" ng-if="showParam">
+			<input class="material" ng-model="query" ng-change="findTown(query)" placeholder="Entrez une ville...">
+		</div>
+
+		<div class="card-child" ng-if="results.length!=0&&showParam">
+			<span class="list-hover" ng-repeat="result in results" ng-click="selectTown(result.id, result.nomAffiche)">
+					{{result.nomAffiche}}<br/>
+			</span>
+		</div>
 	</div>
 	
-	<div class="card">
-		<div class="item" ng-repeat="data in datas">
-			<div class="color-indicator" style="background-color: #{{data.color}};"></div>
-			<div class="detail detail-time">
-				+{{datas.indexOf(data)*5+10}}min
-			</div>
-			<div class="detail detail-text">
-			{{data.niveauPluieText}}
+	<div class="card error" ng-if="error.hasError">
+		<div class="card-child">
+			Erreur: {{error.message}}
+		</div>
+	</div>
+	
+	<div class="card" ng-if="villeLibelle">
+		<div class="card-child">
+			<p ng-if="prochainePrecipitation.time!=undefined">
+				<span class="" ng-repeat="line in resume">
+					{{line}}<br/>
+				</span>
+			</p>
+			
+			<p ng-if="prochainePrecipitation.time==undefined">
+				Pas de pluie prévue dans l'heure ! :)
+			</p>
+
+			<p class="grey">
+				Mise à jour : {{lastUpdate}}
+				<br/>
+				Source : Meteo France
+			</p>
+		</div>
+		
+		<div class="card-child">
+			<div class="item" ng-repeat="data in datas">
+				<div class="color-indicator" style="background-color: #{{data.color}};"></div>
+				<div class="detail detail-time">
+					+{{datas.indexOf(data)*5+10}}min
+				</div>
+				<div class="detail detail-text">
+					{{data.niveauPluieText}}
+				</div>
 			</div>
 		</div>
 	</div>
