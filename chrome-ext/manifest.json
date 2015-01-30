@@ -14,5 +14,9 @@
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": true
+	},
+	"icons": { 
+		"32": "img/rain32.png",
+		"128": "img/rain128.png"
 	}
 }

@@ -9,7 +9,6 @@ main {
   position:relative;
   width:18rem;
   margin:0 auto;
-  padding:0.5rem 0 0;
   background:#d5d5d5;
   outline
   border-radius:.25rem;
@@ -19,11 +18,14 @@ main {
 .card {
   box-shadow:0 1px 2px #aaa;
   background:white;
-  margin:0 0.5rem 0.5rem;
-  border-radius:3px;
   user-select:none;
   animation:fly-in-from-left .5s 1s ease both;
   transform-origin:top left;
+}
+
+.card-title {
+	background-color: #2196F3;
+	color: #fff;
 }
 
 .card-child {
@@ -31,13 +33,33 @@ main {
 }
 
 .card-child:nth-child(2) {
-	border-top: 1px solid #aaa;
+	border-top: 1px solid #fff;
 }
 
 p:last-child {
 	margin-bottom: 0;
 }
 
+/* Ville */
+h1 {
+  font-size:1.2rem;
+  font-weight:500;
+}
+
+input.material {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+	color: #fff;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+
+/* Liste "deroulante" */
 .list-hover 
 {
 	width: 100%;
@@ -45,52 +67,56 @@ p:last-child {
 	cursor: pointer;
 	margin-left: -0.75rem;
 	padding: 0.4rem 0.75rem;
+	transition: 0.25s;
+	will-change: height;
 }
 .list-hover:hover {
-	background:#ddd;
+	background:#BBDEFB;
+	color: #000;
 }
 
 .circle {
 	display: block;
-	border: 1px solid #aaa;
 	border-radius: 50%;
-	width: 0.9rem;
+	width: 2.5rem;
 	float: right;
 	text-align: center;
 	cursor: pointer;
+	margin-top: 2.5rem;
+	font-size: 1.5rem;
+	padding-top: 0.4rem;
+	padding-bottom: 0.25rem;
+	font-weight: 500;
+	color: black;
+	box-shadow: 1px 1px 2px #aaa;
 }
 
-h1 {
-  font-size:1.2rem;
-  font-weight:200;
-  text-align: center;
-}
-
-input.material {
-	width: 100%;
-	border: none;
-	border-bottom: 1px solid #777;
-	outline: none;
-}
-
+/* Previsions */
 .item {
-	height: 1rem;
-}
-.color-indicator {
-	display: inline-flex;
-	height: inherit;
-	width: 0.5rem;
-	margin-left: -0.75rem;
+	display: flex;
+	margin: 2px -0.75rem;
 }
 
 .detail {
-	display: inline-flex;
+	overflow: hidden;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 4px;
 }
 
 .detail-text {
 	margin-left: 1rem;
 }
 
+.detail-time {
+	flex: 0 0 auto;
+	border-radius: 4px;
+	margin-left: 0.75rem;
+}
+
+
+/* Autres */
 .grey {
 	color: grey;
 }
@@ -99,3 +125,12 @@ input.material {
 	border: solid 1px #A00;
 	background: #FEE;
 }
+
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #4CAF50; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #727272; }
+.divider-color         { border-color: #B6B6B6; }

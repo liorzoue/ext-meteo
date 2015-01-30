@@ -26,6 +26,7 @@ MeteoApp.controller('MeteoCtrl', function ($scope, $http) {
 				$scope.villeLibelle = data.villeLibelle;
 				$scope.showParam = data.showParam;
 				$scope.error = data.error;
+				$scope.prochainePrecipitation = data.prochainePrecipitation;
 				
 				if (data.response) {
 					$scope.datas = data.response.dataCadran;

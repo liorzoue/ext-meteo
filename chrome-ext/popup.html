@@ -11,9 +11,9 @@
 <body ng-controller="MeteoCtrl">
 	<main>
 	
-	<div class="card">
+	<div class="card card-title">
 		<div class="card-child" ng-if="villeLibelle">
-			<span class="circle" ng-click="toggleParam()">i</span>
+			<span class="circle accent-color text-primary-color" ng-click="toggleParam()">i</span>
 			<h1>{{villeLibelle}}</h1>
 		</div>
 
@@ -43,7 +43,7 @@
 			</p>
 			
 			<p ng-if="prochainePrecipitation.time==undefined">
-				Pas de pluie prévue dans l'heure ! :)
+				Pas de pluie prévue dans l'heure !
 			</p>
 
 			<p class="grey">
@@ -55,9 +55,8 @@
 		
 		<div class="card-child">
 			<div class="item" ng-repeat="data in datas">
-				<div class="color-indicator" style="background-color: #{{data.color}};"></div>
-				<div class="detail detail-time">
-					+{{datas.indexOf(data)*5+10}}min
+				<div class="detail detail-time" style="background-color: #{{data.color}};">
+					{{data.heure}}
 				</div>
 				<div class="detail detail-text">
 					{{data.niveauPluieText}}

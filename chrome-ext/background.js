@@ -3,7 +3,60 @@ var APIPluieData = APIBaseURL + 'pluie/';
 var APIPluieFind = APIBaseURL + 'lieu/facet/pluie/search/';
 var UpdateInterval = 1; // minute(s)
 
+var myDate = {
+	heures: 0, minutes: 0, 
+	
+	getDate: function () {
+		return this.heures+'h'+(this.minutes<10?'0':'')+this.minutes;
+	}, 
+	
+	addMinutes: function (t) {
+		this.minutes += t;
+		if (this.minutes > 59) {
+			this.minutes -= 60;
+			this.heures++;
+		}
+		return this.getDate();
+	}, 
+	
+	addHeures: function (t) {
+		this.heures += t;
+		if (this.heures > 23) { this.heures -= 24; }
+		
+		return this.getDate();
+	},
+	
+	init: function (h) {
+		if(h) {
+			this.heures = parseInt(h.split('h')[0], 10);
+			this.minutes = parseInt(h.split('h')[1], 10);
+		} else {
+			this.heures = (new Date()).getHours();
+			this.minutes = (new Date()).getMinutes();
+		}
+		
+		return this.getDate();
+	},
+	
+	toDateObject: function (h, m) {
+		if(h) { this.heures = h; }
+		if(m) { this.minutes = m; }
+		var o = new Date();
+		o.setHours(this.heures, this.minutes);
+		
+		return o;
+	}
+};
+
 var get_data = function (callback) {
+	var setIcon = function (type) {
+		var newIconPath = 'img/'+type+'.png';
+		
+		chrome.browserAction.setIcon({
+			path: newIconPath
+		});
+	};
+
 	chrome.storage.sync.get(['villeLibelle','villeID', 'used'], function (item) {
 		if (!item.used) {
 			item.villeLibelle = '';
@@ -25,17 +78,24 @@ var get_data = function (callback) {
 			
 			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 				data.response = JSON.parse(xmlhttp.responseText);
-				data.badge = { text: ':)', color: '5F5' };
-						
+				data.badge = { text: 'no', color: '5F5' };
+				
+				var hasPluie = false;
+				myDate.init(data.response.lastUpdate);
 				for(i=0;i<12;i++) {
-					if (data.response.dataCadran[i].niveauPluie > 1) {
+					data.response.dataCadran[i].heure = myDate.addMinutes(10);
+					
+					if (data.response.dataCadran[i].niveauPluie > 1 && !hasPluie) {
 						data.prochainePrecipitation = data.response.dataCadran[i];
 						data.prochainePrecipitation.time = i*5+10;
 						data.badge.text = data.prochainePrecipitation.time + "m";
 						data.badge.color = data.prochainePrecipitation.color;
-						break;
+						hasPluie = true;
 					}
 				}
+				
+				if (hasPluie) { setIcon('rain32'); }
+				else { setIcon('sun32'); }
 				
 				setBadge(data.badge);
 				
@@ -57,6 +117,8 @@ var get_data = function (callback) {
 var setBadge = function (badge) {
 	if (!badge.color) { badge.color = 'A00'; }
 	if (!badge.text) { badge.text = 'err'; }
+	if (badge.text == 'no') { badge.text = ''; }
+	
 	chrome.browserAction.setBadgeText({text: badge.text.toString() });
 	chrome.browserAction.setBadgeBackgroundColor({ color: '#'+badge.color });
 };
@@ -66,6 +128,8 @@ var setBadge = function (badge) {
 
     setTimeout(updateCounter, 1000*60*UpdateInterval);
 })();
+
+
 
 
 /*
