@@ -76,6 +76,14 @@ MeteoApp.controller('MeteoCtrl', function ($scope, $http) {
 		$scope.showParam=!$scope.showParam;
 	};
 
+	$scope.openGitHub = function () {
+		var newURL = "http://github.com/liorzoue/ext-meteo";
+		chrome.tabs.create({ url: newURL });
+	};
+	
+	$scope.manifest = chrome.runtime.getManifest();
+	
+	$scope.$apply();
 	$scope.run();
 	
 });

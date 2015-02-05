@@ -1,5 +1,7 @@
 var APIBaseURL = 'http://www.meteofrance.com/mf3-rpc-portlet/rest/';
-var APIPluieData = APIBaseURL + 'pluie/';
+//* // tests
+var APIPluieData = APIBaseURL + 'pluie/'; /*/
+var APIPluieData = 'data-sample.json#'; //*/ 
 var APIPluieFind = APIBaseURL + 'lieu/facet/pluie/search/';
 var UpdateInterval = 1; // minute(s)
 
@@ -14,14 +16,14 @@ var myDate = {
 		this.minutes += t;
 		if (this.minutes > 59) {
 			this.minutes -= 60;
-			this.heures++;
+			this.addHeures(1);
 		}
 		return this.getDate();
 	}, 
 	
 	addHeures: function (t) {
 		this.heures += t;
-		if (this.heures > 23) { this.heures -= 24; }
+		if (this.heures >= 24) { this.heures -= 24; }
 		
 		return this.getDate();
 	},
@@ -83,11 +85,11 @@ var get_data = function (callback) {
 				var hasPluie = false;
 				myDate.init(data.response.lastUpdate);
 				for(i=0;i<12;i++) {
-					data.response.dataCadran[i].heure = myDate.addMinutes(10);
+					data.response.dataCadran[i].heure = myDate.addMinutes(5);
 					
 					if (data.response.dataCadran[i].niveauPluie > 1 && !hasPluie) {
 						data.prochainePrecipitation = data.response.dataCadran[i];
-						data.prochainePrecipitation.time = i*5+10;
+						data.prochainePrecipitation.time = i*5+5;
 						data.badge.text = data.prochainePrecipitation.time + "m";
 						data.badge.color = data.prochainePrecipitation.color;
 						hasPluie = true;

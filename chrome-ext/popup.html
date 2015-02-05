@@ -2,29 +2,47 @@
 <html ng-app="MeteoApp">
 <head>
 	<meta charset="UTF-8">
+	
+	<link href="style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
 	<script src="angular.min.js"></script>
 	<script src="popup.js"></script>
 	
-	<link href="style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
-	
 </head>
 <body ng-controller="MeteoCtrl">
-	<main>
-	
+
 	<div class="card card-title">
 		<div class="card-child" ng-if="villeLibelle">
-			<span class="circle accent-color text-primary-color" ng-click="toggleParam()">i</span>
+			<span class="settings grey" ng-click="toggleParam()"><i class="fa fa-cog hover-rotate"></i></span>
 			<h1>{{villeLibelle}}</h1>
 		</div>
+	</div>
 
+	<div class="card card-title">
 		<div class="card-child" ng-if="showParam">
 			<input class="material" ng-model="query" ng-change="findTown(query)" placeholder="Entrez une ville...">
 		</div>
 
 		<div class="card-child" ng-if="results.length!=0&&showParam">
-			<span class="list-hover" ng-repeat="result in results" ng-click="selectTown(result.id, result.nomAffiche)">
+			<span class="list hover-link" ng-repeat="result in results" ng-click="selectTown(result.id, result.nomAffiche)">
 					{{result.nomAffiche}}<br/>
 			</span>
+		</div>
+		
+		<div class="card-child grey" ng-if="showParam">
+			<div class="row">
+				<i class="fa fa-user"></i>
+				<span>Etienne Liorzou</span>
+			</div>
+			<div class="row">
+				<i class="fa fa-code-fork"></i>
+				<span>v.{{manifest.version}}</span>
+			</div>
+			<div class="row hover-link" ng-click="openGitHub()">
+				<i class="fa fa-github-alt"></i>
+				<span>Page GitHub du projet</span>
+			</div>
 		</div>
 	</div>
 	
@@ -34,37 +52,35 @@
 		</div>
 	</div>
 	
-	<div class="card" ng-if="villeLibelle">
+	<div class="card" ng-if="villeLibelle&&!showParam">
 		<div class="card-child">
-			<p ng-if="prochainePrecipitation.time!=undefined">
-				<span class="" ng-repeat="line in resume">
-					{{line}}<br/>
-				</span>
-			</p>
+			<div class="row" ng-if="!prochainePrecipitation.time">
+				<i class="fa fa-comment"></i>
+				<span>Pas de pluie prévue dans l'heure !</span>
+			</div>
 			
-			<p ng-if="prochainePrecipitation.time==undefined">
-				Pas de pluie prévue dans l'heure !
-			</p>
-
-			<p class="grey">
-				Mise à jour : {{lastUpdate}}
-				<br/>
-				Source : Meteo France
-			</p>
+			<div class="row grey">
+				<i class="fa fa-refresh"></i>
+				<span>Mise à jour : {{lastUpdate}}</span>
+			</div>
+			
+			<div class="row grey">
+				<i class="fa fa-info-circle"></i>
+				<span>Source : Meteo France</span>
+			</div>
 		</div>
 		
 		<div class="card-child">
-			<div class="item" ng-repeat="data in datas">
-				<div class="detail detail-time" style="background-color: #{{data.color}};">
+			<div class="row" ng-repeat="data in datas" style="background-color: #{{data.color}};">
+				<div class="" >
 					{{data.heure}}
 				</div>
-				<div class="detail detail-text">
+				<div class="">
 					{{data.niveauPluieText}}
 				</div>
-			</div>
+			</div>			
 		</div>
 	</div>
 	
-	</main>
 </body>
 </html>

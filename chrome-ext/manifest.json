@@ -1,8 +1,8 @@
 {
 	"name" :"Pluie dans l'heure",
-	"version" :"1.2.1",
+	"version" :"1.3.0",
 	"manifest_version": 2,
-	"description" :"Pour savoir s'il va pleuvoir dans l'heure.",
+	"description" :"Va-t-il pleuvoir dans l'heure qui vient ?",
 	"browser_action" :
 	{
 		"default_popup" :"popup.html"
