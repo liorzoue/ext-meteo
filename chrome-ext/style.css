@@ -30,7 +30,7 @@ body {
 	
 	width: 100%;
 	margin-left: -0.75rem;
-	padding: 0.4rem 0.75rem;
+	padding: 0.3rem 0.75rem;
 	
 	overflow: hidden;
 	text-align: right;
@@ -46,6 +46,11 @@ body {
 .row:first-of-type { margin-top: -0.5rem; }
 .row:last-of-type { margin-bottom: -0.5rem; }
 .row:hover { color: black; }
+
+.row-title {
+	font-size: 1.2em;
+	/*border-bottom: 1px solid #ccc;*/
+}
 
 /* Ville */
 h1 {
@@ -67,7 +72,7 @@ input.material {
 	width: 100%;
 	display: block;
 	margin-left: -0.75rem;
-	padding: 0.4rem 0.75rem;
+	padding: 0.35rem 0.75rem;
 	transition: all 200ms ease-in-out;
 }
 
@@ -89,3 +94,53 @@ input.material {
 	border: solid 1px #A00;
 	background: #FEE;
 }
+
+.bar-chart { 
+	display: flex;
+	align-items: flex-end;
+	height: 20px;
+	width: 100%;
+}
+.bar-chart .bar { 
+	width: 100%;
+	border-bottom: 1px solid #aaa;
+}
+
+.checkbox {
+	position: relative;
+	margin: 0 1em 0 0;
+	cursor: pointer;
+}
+
+.checkbox:before {
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	content: "";
+	position: absolute;
+	left: 0;
+	z-index: 1;
+	width: 0.75em;
+	height: 0.75em;
+	border: 1px solid #aaa;
+}
+
+.checkbox:checked:before {
+	transform: rotate(-45deg);
+	height: .45em;
+	border-color: black;
+	border-top-style: none;
+	border-right-style: none;
+}
+
+.checkbox:after {
+	content: "";
+	position: absolute;
+	top: -0.125em;
+	left: 0;
+	width: 1.1em;
+	height: 1.1em;
+	background: #fff;
+	cursor: pointer;
+}
+

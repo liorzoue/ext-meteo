@@ -59,14 +59,16 @@ var get_data = function (callback) {
 		});
 	};
 
-	chrome.storage.sync.get(['villeLibelle','villeID', 'used'], function (item) {
+	chrome.storage.sync.get(['villeLibelle','villeID', 'used', 'graph', 'details'], function (item) {
+		//item.used = false;
+		
 		if (!item.used) {
 			item.villeLibelle = '';
 			item.villeID = 0;
 			item.showParam = true;
+			item.graph = false;
+			item.details = true;
 		} else {
-			item.villeLibelle = item.villeLibelle;
-			item.villeID = item.villeID;
 			item.showParam = false;
 		}
 		
@@ -111,6 +113,7 @@ var get_data = function (callback) {
 			
 			if (callback) { callback(data); }
 		}
+
 		xmlhttp.open("GET", APIPluieData + item.villeID,true);
 		xmlhttp.send();
 	});
