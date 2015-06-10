@@ -3,20 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<link href="style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
+	<link href="css/style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	
-	<script src="angular.min.js"></script>
-	<script src="popup.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/popup.js"></script>
 	
 </head>
 <body ng-controller="MeteoCtrl">
 
 	<!-- Ville -->
-	<div class="card">
-		<div class="card-child" ng-if="villeLibelle">
+	<div class="card" ng-if="Storage.villeID">
+		<div class="card-child">
 			<span class="settings grey" ng-click="toggleParam()"><i class="fa fa-cog hover-rotate"></i></span>
-			<h1>{{villeLibelle}}</h1>
+			<h1>{{Storage.villeText}}</h1>
 		</div>
 	</div>
 	
@@ -28,13 +28,13 @@
 	</div>
 
 	<!-- Parametres -->
-	<div class="card" ng-if="showParam">
+	<div class="card" ng-if="Active=='param'">
 		<div class="card-child">
 			<input class="material" ng-model="query" ng-change="findTown(query)" placeholder="Entrez une ville...">
 		</div>
 		
-		<div class="card-child" ng-if="results.length!=0">
-			<span class="list hover-link" ng-repeat="result in results" ng-click="selectTown(result.id, result.nomAffiche)">
+		<div class="card-child" ng-if="VilleResults.length!=0">
+			<span class="list hover-link" ng-repeat="result in VilleResults" ng-click="selectTown(result.id, result.nomAffiche)">
 					{{result.nomAffiche}}<br/>
 			</span>
 		</div>
@@ -46,13 +46,30 @@
 			</div>
 			
 			<div class="row">
-				<input type="checkbox" class="checkbox" ng-model="showGraph" ng-change="onSetChange(showGraph, showDetails)">
+				<input type="checkbox" class="checkbox" ng-model="Storage.pGraph">
 				<span>Graphique</span>
 			</div>
 			
 			<div class="row">
-				<input type="checkbox" class="checkbox" ng-model="showDetails" ng-change="onSetChange(showGraph, showDetails)">
+				<input type="checkbox" class="checkbox" ng-model="Storage.pDetails">
 				<span>Détails</span>
+			</div>
+			
+			<div class="row">
+				<input type="checkbox" class="checkbox" ng-model="Storage.pNotifications">
+				<span>Notifications</span>
+			</div>
+		</div>
+		
+		<div class="card-child grey" ng-if="Storage.pNotifications">
+			<div class="row row-title">
+				<i class="fa fa-bell"></i>
+				<span>Notifications</span>
+			</div>
+			
+			<div class="row">
+				<i class="fa fa-clock-o"></i>
+				<input type="time" ng-model="Storage.pNotifTime" class="ng-pristine ng-valid" style="border: none; outline: none; text-align: right;">
 			</div>
 		</div>
 		
@@ -62,15 +79,16 @@
 				<span>A propos</span>
 			</div>
 			
+			
 			<div class="row">
+				<i class="fa fa-code-fork"></i>
+				<span>v.{{Manifest.version}}</span>
+			</div>
+			<div class="row hover-link" ng-click="openURL('http://etienne.liorzou.bzh/')">
 				<i class="fa fa-user"></i>
 				<span>Etienne Liorzou</span>
 			</div>
-			<div class="row">
-				<i class="fa fa-code-fork"></i>
-				<span>v.{{manifest.version}}</span>
-			</div>
-			<div class="row hover-link" ng-click="openGitHub()">
+			<div class="row hover-link" ng-click="openURL('http://github.com/liorzoue/ext-meteo')">
 				<i class="fa fa-github-alt"></i>
 				<span>Page GitHub du projet</span>
 			</div>
@@ -78,21 +96,21 @@
 	</div>
 	
 	<!-- Contenu -->
-	<div class="card" ng-if="villeLibelle&&!showParam">
+	<div class="card" ng-if="Active=='default'">
 		<div class="card-child">
 			<div class="row row-title">
 				<i class="fa fa-info-circle"></i>
 				<span>Informations</span>
 			</div>
 			
-			<div class="row" ng-if="!prochainePrecipitation.time">
+			<div class="row" ng-if="!PluieData.prochainePrecipitation.time">
 				<i class="fa fa-comment"></i>
 				<span>Pas de pluie prévue dans l'heure !</span>
 			</div>
 			
 			<div class="row grey">
 				<i class="fa fa-refresh"></i>
-				<span>Mise à jour : {{lastUpdate}}</span>
+				<span>Mise à jour : {{PluieData.lastUpdate}}</span>
 			</div>
 			
 			<div class="row grey">
@@ -101,7 +119,7 @@
 			</div>
 		</div>
 		
-		<div class="card-child" ng-if="showGraph">
+		<div class="card-child" ng-if="Storage.pGraph">
 			<div class="row row-title">
 				<i class="fa fa-bar-chart"></i>
 				<span>Prévisions</span>
@@ -109,20 +127,20 @@
 			
 			<div class="row">
 				<div class="bar-chart">
-					<div class="bar" ng-repeat="data in datas" style="background-color: #{{data.color}}; height: {{20*Math.abs(data.niveauPluie-1)/3}}px;">
+					<div class="bar" ng-repeat="data in PluieData.dataCadran" style="background-color: #{{data.color}}; height: {{20*Math.abs(data.niveauPluie-1)/3}}px;">
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		
-		<div class="card-child" ng-if="showDetails">
+		<div class="card-child" ng-if="Storage.pDetails">
 			<div class="row row-title">
 				<i class="fa fa-th-list"></i>
 				<span>Détails</span>
 			</div>
 			
-			<div class="row" ng-repeat="data in datas" style="background-color: #{{data.color}};">
+			<div class="row" ng-repeat="data in PluieData.dataCadran" style="background-color: #{{data.color}};">
 				<div class="" >
 					{{data.heure}}
 				</div>
@@ -134,5 +152,14 @@
 
 	</div>
 
+	<!-- Chargement en cours -->
+	<div class="card" ng-if="Status.loading">
+		<div class="card-child">
+			<div class="row row-title">
+				<i class="fa fa-refresh fa-spin"></i>
+				<span>Chargement des données...</span>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

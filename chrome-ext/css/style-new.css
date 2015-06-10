@@ -1,0 +1,136 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,900,700italic,900italic);
+
+* { font-family: 'Roboto', sans-serif; line-height:1.2; vertical-align:middle; }
+
+body { background:#d5d5d5; margin: 0; height: auto; }
+
+main {
+  display:block;
+  position:relative;
+  width:18rem;
+  margin:0 auto;
+  background:#d5d5d5;
+  outline
+  border-radius:.25rem;
+  overflow:hidden;
+}
+
+.card {
+  box-shadow:0 1px 2px #aaa;
+  background:white;
+  user-select:none;
+  animation:fly-in-from-left .5s 1s ease both;
+  transform-origin:top left;
+}
+
+.card-title {
+	background-color: #2196F3;
+	color: #fff;
+}
+
+.card-child {
+	padding: 0.75rem;
+}
+
+.card-child:nth-child(2) {
+	border-top: 1px solid #fff;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+/* Ville */
+h1 {
+  font-size:1.2rem;
+  font-weight:500;
+}
+
+input.material {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+	color: #fff;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+
+/* Liste "deroulante" */
+.list-hover 
+{
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	margin-left: -0.75rem;
+	padding: 0.4rem 0.75rem;
+	transition: 0.25s;
+	will-change: height;
+}
+.list-hover:hover {
+	background:#BBDEFB;
+	color: #000;
+}
+
+.circle {
+	display: block;
+	border-radius: 50%;
+	width: 2.5rem;
+	float: right;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 2.5rem;
+	font-size: 1.5rem;
+	padding-top: 0.4rem;
+	padding-bottom: 0.25rem;
+	font-weight: 500;
+	color: black;
+	box-shadow: 1px 1px 2px #aaa;
+}
+
+/* Previsions */
+.item {
+	display: flex;
+	margin: 2px -0.75rem;
+}
+
+.detail {
+	overflow: hidden;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 4px;
+}
+
+.detail-text {
+	margin-left: 1rem;
+}
+
+.detail-time {
+	flex: 0 0 auto;
+	border-radius: 4px;
+	margin-left: 0.75rem;
+}
+
+
+/* Autres */
+.grey {
+	color: grey;
+}
+
+.error {
+	border: solid 1px #A00;
+	background: #FEE;
+}
+
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #4CAF50; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #727272; }
+.divider-color         { border-color: #B6B6B6; }
