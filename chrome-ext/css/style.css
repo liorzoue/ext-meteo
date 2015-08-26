@@ -144,3 +144,23 @@ input.material {
 	cursor: pointer;
 }
 
+.material-icons {
+	font-size: inherit;
+}
+
+.material-icons.md-red {
+	color: #B71C1C;
+}
+.material-icons.md-blue {
+	color: #0D47A1;
+}
+
+.delete {
+	cursor: pointer;
+	font-size: 17px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+}
+
+
+

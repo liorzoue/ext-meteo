@@ -9,19 +9,26 @@ var MeteoAPI = {
 
 var ModeDebug = false;
 var UpdateInterval = 1; // minute(s)
+var VilleEnAvant = 0; // Ville affichée dans la barre d'extension
 
 if (ModeDebug) { MeteoAPI.getData = function () { return 'data-sample.json#'; }; }
 
-var PluieData = {};
+var PluieData = [];
 
 var Storage = {
-	villeText: null,
-	villeID: 0,
+	villes: [
+		{
+			name: null,
+			id: 0
+		}
+	],
 	pGraph: true,
 	pDetails: true,
 	pNotifications: true,
 	pNotifTime: ':'
 };
+
+Storage.villes = []; 
 
 var Status = {
 	error: false,
@@ -64,7 +71,7 @@ var setStorage = function () {
 
 var getStorage = function () {
 	chrome.storage.local.get(null, function(result){
-		if (result.villeID == undefined) { return false; }
+		if (result.villes[0].id == undefined) { return false; }
 		Storage = result;
 	});
 }
@@ -115,21 +122,22 @@ var gestDate = {
 };
 
 var gestPluie = function (response) {
-	PluieData = response;
+	PluieData.push(response);
+	var len = PluieData.length - 1;
 	
-	if (!PluieData.lastUpdate) { return; }
+	if (!PluieData[len].lastUpdate) { return; }
 	
 	Status.badge = { text: 'no', color: '5F5' };
 	Status.pluie = false;
 	
-	gestDate.init(PluieData.lastUpdate);
+	gestDate.init(PluieData[len].lastUpdate);
 	
 	for (i=0;i<12;i++) {
-		PluieData.dataCadran[i].heure = gestDate.addMinutes(5);
-		if (PluieData.dataCadran[i].niveauPluie > 1 && !Status.pluie) {
-			PluieData.prochainePrecipitation = PluieData.dataCadran[i];
-			PluieData.prochainePrecipitation.time = i*5+5;
-			Status.badge = { text: PluieData.prochainePrecipitation.time + "m", color: PluieData.prochainePrecipitation.color };
+		PluieData[len].dataCadran[i].heure = gestDate.addMinutes(5);
+		if (PluieData[len].dataCadran[i].niveauPluie > 1 && !Status.pluie) {
+			PluieData[len].prochainePrecipitation = PluieData[len].dataCadran[i];
+			PluieData[len].prochainePrecipitation.time = i*5+5;
+			Status.badge = { text: PluieData[len].prochainePrecipitation.time + "m", color: PluieData[len].prochainePrecipitation.color };
 			Status.pluie = true;
 		}
 	}
@@ -159,7 +167,11 @@ var ajaxRequest = function (url, callback) {
 };
 
 var getData = function () {
-	ajaxRequest(MeteoAPI.getData()+Storage.villeID, gestPluie);
+	PluieData = [];
+	for (i=0;i<Storage.villes.length;i++) {
+		ajaxRequest(MeteoAPI.getData()+Storage.villes[i].id, gestPluie);
+		// ajaxRequest('js/data-sample_'+Storage.villes[i].id + '.json', gestPluie);
+	}
 };
 
 var notifyMe = function () {

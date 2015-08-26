@@ -12,11 +12,17 @@ MeteoApp.controller('MeteoCtrl', ['$scope','$http', function ($scope, $http) {
 	$scope.VilleResults = [];
 	$scope.query = '';
 
-	if ($scope.BackgroundPage.Storage.villeID == 0) {
+	if ($scope.BackgroundPage.Storage.villes.length == 0) {
 		$scope.Active = 'param';
 	} else {
 		$scope.BackgroundPage.getData();
 	}
+
+	$scope.toggle = function(what) {
+		if (what == 'details') { $scope.Storage.pDetails = !$scope.Storage.pDetails; };
+		if (what == 'graph') { $scope.Storage.pGraph = !$scope.Storage.pGraph; };
+		if (what == 'notifs') { $scope.Storage.pNotifications = !$scope.Storage.pNotifications; };
+	};
 		
 	$scope.toggleParam = function () {
 		$scope.BackgroundPage.setStorage();
@@ -36,8 +42,8 @@ MeteoApp.controller('MeteoCtrl', ['$scope','$http', function ($scope, $http) {
 	};
 
 	$scope.selectTown = function (id, libelle) {
-		$scope.BackgroundPage.Storage.villeID = id;
-		$scope.BackgroundPage.Storage.villeText = libelle;
+	
+		$scope.BackgroundPage.Storage.villes.push({name: libelle, id: id});
 		$scope.BackgroundPage.setStorage();
 		
 		$scope.VilleResults = [];
@@ -47,6 +53,13 @@ MeteoApp.controller('MeteoCtrl', ['$scope','$http', function ($scope, $http) {
 	$scope.openURL = function (url) {
 		chrome.tabs.create({ url: url });
 	};
+	
+	$scope.removeVille = function(item) { 
+		var index = $scope.Storage.villes.indexOf(item);
+		$scope.Storage.villes.splice(index, 1);     
+		
+		$scope.BackgroundPage.setStorage();
+	}
 	
 	
 	$scope.$apply();
