@@ -1,21 +1,20 @@
 ext-meteo
-=========
+==
 
-Chrome extension for 'Va-t-il pleuvoir dans l'heure' feature from [Meteo France](http://www.meteofrance.com/).
+Extension Chrome pour avoir à portée de main la fonctionnalité 'Va-t-il pleuvoir dans l'heure ?' de [Meteo France](http://www.meteofrance.com/).
 
-How to install ?
-----------------
+Comment l'installer ?
+--
 
-1. Enable `Developer mode` in Chrome Extension Manager page.
-2. Select `Load unpacked extension`
-3. Locate folder `chrome-ext` on your computer.
-4. Validate.
-5. Enjoy.
+Le plus simple est de télécharger l'extension directement depuis le [Chrome Webstore](https://chrome.google.com/webstore/detail/pluie-dans-lheure/nnpkmpjhobmndlchjdahkjgdodlfikce).
+
+Vous pouvez aussi l'installer comme extension non empaquetée, via le mode développeur. 
+Téléchargez le projet :
+- [latest](https://github.com/liorzoue/ext-meteo/archive/master.zip)
+- [stable](https://github.com/liorzoue/ext-meteo/archive/1.4.0.zip) (v.1.4.0)
 
 
-Disclaimer
-----------
+Attention !
+--
 
-I use an undocumented (as far I know) API from MeteoFrance, so this software could be broken.
-
-PS : Sorry for my poor English. :)
+L'extension utilise une API non documentée (à ma connaissance) de Météo France, cette extension peut donc cesser de fonctionner à tout moment. :)
