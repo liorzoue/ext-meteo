@@ -13,6 +13,13 @@ Téléchargez le projet :
 - [latest](https://github.com/liorzoue/ext-meteo/archive/master.zip)
 - [stable](https://github.com/liorzoue/ext-meteo/archive/1.4.0.zip) (v.1.4.0)
 
+Fonctionnalités
+--
+
+- Suivi de plusieurs villes
+- Notifications programmables (tous les jours à la même heure)
+- Graphique du niveau de précipitations dans l'heure
+- Détail de l'évolution des précipitations
 
 Attention !
 --
