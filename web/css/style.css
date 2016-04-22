@@ -1,0 +1,166 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,900,700italic,900italic);
+
+* { font-family: 'Roboto', sans-serif; line-height:1.2; vertical-align:middle; }
+body {
+	background:#d5d5d5;
+	margin: 0;
+	height: auto;
+	width: 18rem;
+	padding: 0.5rem 0 0;
+}
+
+.card {
+  box-shadow:0 1px 2px #aaa;
+  background:white;
+  margin:0 0.5rem 0.5rem;
+  border-radius:3px;
+  user-select:none;
+  animation:fly-in-from-left .5s 1s ease both;
+  transform-origin:top left;
+}
+
+.card-child {
+	padding: 0.75rem;
+	border-top: 1px solid #aaa;
+}
+.card-child:first-child { border-top: none; }
+
+.row {
+	display:flex;
+	
+	width: 100%;
+	margin-left: -0.75rem;
+	padding: 0.3rem 0.75rem;
+	
+	overflow: hidden;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+	justify-content: space-between;
+
+	text-decoration: none;
+	transition: all 500ms ease-in-out;
+}
+
+.row:first-of-type { margin-top: -0.5rem; }
+.row:last-of-type { margin-bottom: -0.5rem; }
+.row:hover { color: black; }
+
+.row-title {
+	font-size: 1.2em;
+	/*border-bottom: 1px solid #ccc;*/
+}
+
+/* Ville */
+h1 {
+  font-size:1.2rem;
+  font-weight:200;
+  text-align: center;
+}
+
+input.material {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #777;
+	outline: none;
+}
+
+/* Liste "deroulante" */
+.list 
+{
+	width: 100%;
+	display: block;
+	margin-left: -0.75rem;
+	padding: 0.35rem 0.75rem;
+	transition: all 200ms ease-in-out;
+}
+
+.settings {
+	float: right;
+	cursor: pointer;
+	font-size: 1.3em;
+}
+
+.hover-rotate { transition: all 200ms ease-in-out; }
+.hover-rotate:hover { transform: rotate(90deg); }
+.hover-link { cursor: pointer; }
+.hover-link:hover { background:#ddd; }
+
+/* Autres */
+.grey { color: grey; }
+
+.error {
+	border: solid 1px #A00;
+	background: #FEE;
+}
+
+.bar-chart { 
+	display: flex;
+	align-items: flex-end;
+	height: 20px;
+	width: 100%;
+}
+.bar-chart .bar { 
+	width: 100%;
+	border-bottom: 1px solid #aaa;
+}
+
+.checkbox {
+	position: relative;
+	margin: 0 1em 0 0;
+	cursor: pointer;
+}
+
+.checkbox:before {
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	content: "";
+	position: absolute;
+	left: 0;
+	z-index: 1;
+	width: 0.75em;
+	height: 0.75em;
+	border: 1px solid #aaa;
+}
+
+.checkbox:checked:before {
+	transform: rotate(-45deg);
+	height: .45em;
+	border-color: black;
+	border-top-style: none;
+	border-right-style: none;
+}
+
+.checkbox:after {
+	content: "";
+	position: absolute;
+	top: -0.125em;
+	left: 0;
+	width: 1.1em;
+	height: 1.1em;
+	background: #fff;
+	cursor: pointer;
+}
+
+.material-icons {
+	font-size: inherit;
+}
+
+.material-icons.md-red {
+	color: #B71C1C;
+}
+.material-icons.md-blue {
+	color: #0D47A1;
+}
+
+.delete {
+	cursor: pointer;
+	font-size: 17px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+}
+
+
+

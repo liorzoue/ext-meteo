@@ -1,0 +1,57 @@
+{
+  "idLieu" : "292330",
+  "echeance" : "201411132345",
+  "lastUpdate" : "23h35",
+  "isAvailable" : true,
+  "hasData" : true,
+  "niveauPluieText" : [ "De23h45 à 23h50 : Pas de précipitations", "De23h50 à 23h55 : Précipitations faibles", "De23h55 à 00h35 : Pas de précipitations", "De00h35 à 00h45 : Données indisponibles" ],
+  "dataCadran" : [ {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Données indisponibles",
+    "niveauPluie" : 0,
+    "color" : "e3e3e3"
+  }, {
+    "niveauPluieText" : "Précipitations faibles",
+    "niveauPluie" : 2,
+    "color" : "5ec5ed"
+  }, {
+    "niveauPluieText" : "Précipitations modérées",
+    "niveauPluie" : 3,
+    "color" : "009ee0"
+  }, {
+    "niveauPluieText" : "Précipitations fortes",
+    "niveauPluie" : 4,
+    "color" : "006ab3"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Pas de précipitations",
+    "niveauPluie" : 1,
+    "color" : "ffffff"
+  }, {
+    "niveauPluieText" : "Données indisponibles",
+    "niveauPluie" : 0,
+    "color" : "e3e3e3"
+  } ]
+}

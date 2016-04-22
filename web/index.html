@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html ng-app="MeteoApp">
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
+
+	
+</head>
+<body ng-controller="MeteoCtrl">
+
+	<!-- Informations -->
+	<div class="card" ng-if="Active=='default'">
+		<div class="card-child">
+			<div class="row row-title">
+				<i class="material-icons">info_outline</i>
+				<span>Informations</span>
+			</div>
+			
+			<div class="row" ng-if="!PluieData.prochainePrecipitation.time">
+				<i class="material-icons">comment</i>
+				<span>Pas de pluie prévue dans l'heure !</span>
+			</div>
+			
+			<div class="row grey">
+				<i class="material-icons">system_update_alt</i>
+				<span>Mise à jour : {{PluieData[0].lastUpdate}}</span>
+			</div>
+			
+			<div class="row grey">
+				<i class="material-icons">cloud_download</i>
+				<span>Source : Meteo France</span>
+			</div>
+			
+			<div class="row hover-link" ng-click="toggleParam()">
+				<i class="material-icons">settings</i>
+				<span>Réglages</span>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Retour -->
+	<div class="card" ng-if="Active=='param'">
+		<div class="card-child">
+			<div class="row hover-link" ng-click="toggleParam()">
+				<i class="material-icons">arrow_back</i>
+				<span>Retour</span>
+			</div>
+		</div>	
+	</div>
+	
+	<!-- Erreur -->
+	<div class="card error" ng-if="error.hasError">
+		<div class="card-child">
+			Erreur: {{error.message}}
+		</div>
+	</div>
+
+	<!-- Villes -->
+	<div class="card" ng-repeat="ville in Storage.villes" ng-if="Active=='default'">
+		<!-- Nom de la ville -->
+		<div class="card-child">
+			<h1>{{ville.name}}</h1>
+		</div>
+		
+		<!-- Graph -->
+		<div class="card-child" ng-if="Storage.pGraph">
+			<div class="row row-title">
+				<i class="material-icons">equalizer</i>
+				<span>Prévisions</span>
+			</div>
+			
+			<div class="row">
+				<div class="bar-chart">
+					<div class="bar" ng-repeat="data in PluieData[$index].dataCadran" style="background-color: #{{data.color}}; height: {{20*Math.abs(data.niveauPluie-1)/3}}px;">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Details -->
+		<div class="card-child" ng-if="Storage.pDetails">
+			<div class="row row-title">
+				<i class="material-icons">view_list</i>
+				<span>Détails</span>
+			</div>
+			
+			<div class="row" ng-repeat="data in PluieData[$index].dataCadran" style="background-color: #{{data.color}};">
+				<div class="" >
+					{{data.heure}}
+				</div>
+				<div class="">
+					{{data.niveauPluieText}}
+				</div>
+			</div>			
+		</div>
+	</div>
+	
+	<!-- Parametres -->
+	<div class="card" ng-if="Active=='param'">
+		<div class="card-child">
+			<div class="row hover-link" ng-repeat="ville in Storage.villes" ng-click="removeVille(ville)">
+				<i class="material-icons md-red">delete</i>
+				<span>{{ville.name}}</span>
+			</div>
+		</div>
+		
+		<div class="card-child">
+			<input class="material" ng-model="query" ng-change="findTown(query)" placeholder="Ajoutez une ville...">
+		</div>
+		
+		<div class="card-child" ng-if="VilleResults.length!=0">
+			<span class="list hover-link" ng-repeat="result in VilleResults" ng-click="selectTown(result.id, result.nomAffiche)">
+					{{result.nomAffiche}}<br/>
+			</span>
+		</div>
+	</div>
+			
+	<div class="card" ng-if="Active=='param'">
+		<div class="card-child">
+			<div class="row row-title">
+				<i class="material-icons">settings</i>
+				<span>Options</span>
+			</div>
+			
+			<div class="row hover-link" ng-click="toggle('graph')">
+				<i class="material-icons" ng-if="!Storage.pGraph">check_box_outline_blank</i>
+				<i class="material-icons" ng-if="Storage.pGraph">checked</i>
+				<span>Graphique</span>
+			</div>
+			
+			<div class="row hover-link" ng-click="toggle('details')">
+				<i class="material-icons" ng-if="!Storage.pDetails">check_box_outline_blank</i>
+				<i class="material-icons" ng-if="Storage.pDetails">checked</i>
+				<span>Détails</span>
+			</div>
+			
+			<div class="row hover-link" ng-click="toggle('notifs')">
+				<i class="material-icons" ng-if="!Storage.pNotifications">check_box_outline_blank</i>
+				<i class="material-icons" ng-if="Storage.pNotifications">checked</i>
+				<span>Notifications</span>
+			</div>
+		</div>
+		
+		<div class="card-child grey" ng-if="Storage.pNotifications">
+			<div class="row row-title">
+				<i class="material-icons">notifications</i>
+				<span>Notifications</span>
+			</div>
+			
+			<div class="row">
+				<i class="material-icons">schedule</i>
+				<input type="time" ng-model="Storage.pNotifTime" class="ng-pristine ng-valid" style="border: none; outline: none; text-align: right;">
+			</div>
+		</div>
+		
+		<div class="card-child grey">
+			<div class="row row-title">
+				<i class="material-icons">info_outline</i>
+				<span>A propos</span>
+			</div>
+			
+			
+			<div class="row">
+				<i class="material-icons">call_split</i>
+				<span>v.{{Manifest.version}}</span>
+			</div>
+			<div class="row hover-link" ng-click="openURL('http://etienne.liorzou.bzh/')">
+				<i class="material-icons md-blue">person</i>
+				<span>Etienne Liorzou</span>
+			</div>
+			<div class="row hover-link" ng-click="openURL('http://github.com/liorzoue/ext-meteo')">
+				<i class="fa fa-github-alt"></i>
+				<span>Page GitHub du projet</span>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Chargement en cours -->
+	<div class="card" ng-if="Status.loading">
+		<div class="card-child">
+			<div class="row row-title">
+				<i class="fa fa-refresh fa-spin"></i>
+				<span>Chargement des données...</span>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="js/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/angular-localstorage.min.js"></script>
+</body>
+</html>
