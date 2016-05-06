@@ -42,6 +42,13 @@ var Status = {
 	icon: 'rain32'
 };
 
+function findVille(villeName) {
+	return function findVilleInStorage(ville) {
+		return ville.id === villeName;
+	};
+}
+
+
 var Message = function () {
 	if (!ModeDebug) { return true; }
 	
@@ -134,6 +141,7 @@ var gestPluie = function (response) {
 	
 	for (i=0;i<12;i++) {
 		PluieData[len].dataCadran[i].heure = gestDate.addMinutes(5);
+		PluieData[len].villeItem = Storage.villes.find(findVille(PluieData[len].idLieu));
 		if (PluieData[len].dataCadran[i].niveauPluie > 1 && !Status.pluie) {
 			PluieData[len].prochainePrecipitation = PluieData[len].dataCadran[i];
 			PluieData[len].prochainePrecipitation.time = i*5+5;
@@ -178,20 +186,26 @@ var notifyMe = function () {
 	var notifText = '';
 	var notifIcon = 'sun32';
 	
-	if(!PluieData.prochainePrecipitation) {
-		// Pas de pluie !
-		notifText = 'Pas de pluie prévue dans l\'heure ! :)';
-		notifIcon = 'img/sun128.png';
-	} else {
-		// Pluie !!
-		notifText = PluieData.prochainePrecipitation.niveauPluieText + ' dans ' + PluieData.prochainePrecipitation.time + 'min';
-		notifIcon = 'img/rain128.png';
-	}
-	
-	var notification = new Notification('Pluie dans l\'heure', {
+	for (var i = PluieData.length - 1; i >= 0; i--) {
+		if(!PluieData[i].prochainePrecipitation) {
+			// Pas de pluie !
+			notifText = 'Pas de pluie prévue dans l\'heure ! :)';
+			notifIcon = 'img/sun128.png';
+		} else {
+			// Pluie !!
+			notifText = PluieData[i].prochainePrecipitation.niveauPluieText + ' dans ' + PluieData[i].prochainePrecipitation.time + 'min';
+			notifIcon = 'img/rain128.png';
+		}
+
+		
+
+		var notification = new Notification(PluieData[i].villeItem.name, {
 		icon: notifIcon,
 		body: notifText,
 	});
+	}
+	
+	
 	
 	console.log('notification: ', notifText);
 };
