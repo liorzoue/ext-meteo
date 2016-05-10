@@ -1,0 +1,106 @@
+<div class="card">
+	<div class="card-child">
+		<a href="#/default" class="row hover-link"> <i class="material-icons">arrow_back</i>
+			<span>Retour</span>
+		</a>
+	</div>
+</div>
+
+<div class="card">
+
+	<div class="card-child">
+		<input class="material" ng-model="ville" ng-change="findVilles(ville)" placeholder="Ajoutez une ville..."></div>
+
+	<div class="card-child" ng-if="villesResult.length!=0">
+		<span class="list hover-link" ng-repeat="result in villesResult" ng-click="registerVille(result)">
+			{{result.nomAffiche}}
+			<br/>
+		</span>
+	</div>
+</div>
+
+<div class="card">
+
+	<div class="card-child">Mes villes</div>
+
+	<div class="card-child" ng-if="myVilles.length!=0">
+		<div class="row hover-link" ng-repeat="result in myVilles">
+			<span>{{result.nomAffiche}}</span>
+			<span>
+				<i class="material-icons" ng-click="toggleNotifications(result)">notifications_{{result.notifications?"active":"off"}}</i>
+				<i class="material-icons md-red" ng-click="unregisterVille(result)">delete</i>
+			</span>
+		</div>
+	</div>
+	<div class="card-child" ng-if="myVilles.length==0">
+		<i>Aucune ville sauvegardée !</i>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-child">
+		<div class="row row-title">
+			<i class="material-icons">settings</i>
+			<span>Options</span>
+		</div>
+
+		<div class="row hover-link" ng-click="toggle('graph')">
+		<i class="material-icons" ng-if="!Options.graph.active">check_box_outline_blank</i>
+			<i class="material-icons" ng-if="Options.graph.active">checked</i>
+			<span>Graphique</span>
+		</div>
+
+		<div class="row hover-link" ng-click="toggle('detail')">
+			<i class="material-icons" ng-if="!Options.detail.active">check_box_outline_blank</i>
+			<i class="material-icons" ng-if="Options.detail.active">checked</i>
+			<span>Détails</span>
+		</div>
+
+		<div class="row hover-link" ng-click="toggle('notifications')">
+			<i class="material-icons" ng-if="!Options.notifications.active">check_box_outline_blank</i>
+			<i class="material-icons" ng-if="Options.notifications.active">checked</i>
+			<span>Notifications</span>
+		</div>
+	</div>
+
+	<div class="card-child grey" ng-if="Options.notifications.active">
+		<div class="row row-title">
+			<i class="material-icons">notifications</i>
+			<span>Notifications</span>
+		</div>
+
+		<div class="row" ng-repeat="item in Options.notifications.list">
+			<input type="time" ng-model="item.heure" ng-change="saveNotifications()" style="border: none; outline: none; text-align: right;">
+			<!--<i class="material-icons">schedule</i>-->
+		 	<i class="material-icons md-red delete" ng-click="removeNotification(item)">delete</i>
+		</div>
+
+		<div class="row hover-link" ng-click="Options.notifications.list.push({ heure: undefined })">
+			<i class="material-icons">add</i>
+			<span>Ajouter</span>
+		</div>
+	</div>
+
+</div>
+
+<div class="card">
+	<div class="card-child grey">
+		<div class="row row-title">
+			<i class="material-icons">info_outline</i>
+			<span>A propos</span>
+		</div>
+
+		<div class="row">
+			<i class="material-icons">call_split</i>
+			<span>v.{{Manifest.version}}</span>
+		</div>
+		<div class="row hover-link" ng-click="openURL('http://etienne.liorzou.bzh/?origin=ext-meteo')">
+			<i class="material-icons md-blue">person</i>
+			<span>Etienne Liorzou</span>
+		</div>
+		<div class="row hover-link" ng-click="openURL('http://github.com/liorzoue/ext-meteo')">
+			<i class="fa fa-github-alt"></i>
+			<span>Page GitHub du projet</span>
+		</div>
+	</div>
+</div>
