@@ -1,0 +1,66 @@
+<div class="card">
+	<div class="card-child">
+		<div class="row row-title"> <i class="material-icons">info_outline</i>
+			<span>Informations</span>
+		</div>
+
+		<div class="row" ng-if="!PluieData.prochainePrecipitation.time"> 
+			<i class="material-icons">comment</i>
+			<span>Pas de pluie prévue dans l'heure !</span>
+		</div>
+
+		<div class="row grey">
+			<i class="material-icons">system_update_alt</i>
+			<span>Mise à jour : {{myVilles[0].Meteo.lastUpdate}}</span>
+		</div>
+
+		<div class="row grey">
+			<i class="material-icons">cloud_download</i>
+			<span>Source : Meteo France</span>
+		</div>
+
+		<div class="row hover-link">
+			<a class="" href="#/settings"> <i class="material-icons">settings</i>
+				<span>Réglages</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="card" ng-repeat="ville in myVilles" ng-if="myVilles.length!=0">
+	<!-- Nom de la ville -->
+	<div class="card-child">
+		{{ville.nomAffiche}}
+	</div>
+
+	<!-- Graph -->
+	<div class="card-child" ng-if="Options.graph.active">
+		<div class="row row-title"> <i class="material-icons">equalizer</i>
+			<span>Prévisions</span>
+		</div>
+
+		<div class="row">
+			<div class="bar-chart">
+				<div class="bar" ng-repeat="data in ville.Meteo.dataCadran" style="background-color: #{{data.color}}; height: {{20*Math.abs(data.niveauPluie-1)/3}}px;"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Details -->
+	<div class="card-child" ng-if="Options.detail.active">
+		<div class="row row-title"> <i class="material-icons">view_list</i>
+			<span>Détails</span>
+		</div>
+
+		<div class="row" ng-repeat="data in ville.Meteo.dataCadran" style="background-color: #{{data.color}};">
+			<div class="">{{myDateTime.addMinutesToDate(ville.Meteo.lastUpdate, $index*5+5)}}</div>
+			<div class="">{{data.niveauPluieText}}</div>
+		</div>
+	</div>
+</div>
+
+<div class="card" ng-if="myVilles.length==0">
+	<div class="card-child">
+		<i>Aucune ville sauvegardée !</i>
+	</div>
+</div>
