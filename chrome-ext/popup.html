@@ -6,7 +6,17 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="css/style.css" id="cm-theme" media="screen" rel="stylesheet" type="text/css">
-
+	
+	<!-- Google Analytics -->
+	<script src="js/analytics/analytics.js"></script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<!-- End Google Analytics -->
+</head>
+<body ng-controller="PopupCtrl">
+	
+	<!-- Parametres -->
+	<div ng-view></div>
+	
 	<!-- 
 		Angular v.1.5.5
 		http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-modulename.js
@@ -33,12 +43,6 @@
 	<script src="js/app/services/myStorageService.js"></script>
 	<script src="js/app/services/meteoStorageService.js"></script>
 
-	
-</head>
-<body ng-controller="PopupCtrl">
-	
-	<!-- Parametres -->
-	<div ng-view></div>
-			
+	<script src='js/analytics/autotrack.js'></script>
 </body>
 </html>
