@@ -1,4 +1,9 @@
-MeteoControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'myChrome', function ($scope, $interval, Meteo, Icone, meteoStorage, myChrome) {
+MeteoControllers.controller('backgroundCtrl', 
+	['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'myChrome', 'Migration', 
+	function ($scope, $interval, Meteo, Icone, meteoStorage, myChrome, Migration) {
+
+		Migration.make();
+
 	function action() {		
 		$scope.myVilles = meteoStorage.getVilles();
 		$scope.Options = meteoStorage.getOptions();
