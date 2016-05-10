@@ -12,6 +12,7 @@ MeteoControllers.controller('backgroundCtrl',
 			return Meteo.query({villeId: item.id})
 		};
 
+		if ($scope.myVilles.length == 0) { return false; }
 		for (var i = $scope.myVilles.length - 1; i >= 0; i--) {
 			$scope.myVilles[i].Meteo = $scope.getMeteo($scope.myVilles[i]);
 		}
