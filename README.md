@@ -11,7 +11,7 @@ Le plus simple est de télécharger l'extension directement depuis le [Chrome We
 Vous pouvez aussi l'installer comme extension non empaquetée, via le mode développeur. 
 Téléchargez le projet :
 - [latest](https://github.com/liorzoue/ext-meteo/archive/master.zip)
-- [stable](https://github.com/liorzoue/ext-meteo/archive/1.4.0.zip) (v.1.4.0)
+- [stable](https://github.com/liorzoue/ext-meteo/archive/1.5.0.zip) (v.1.5.0)
 
 Fonctionnalités
 --
