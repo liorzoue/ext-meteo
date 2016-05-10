@@ -21,15 +21,20 @@
 
 <div class="card">
 
-	<div class="card-child">Mes villes</div>
+	<div class="card-child">
+		<div class="row">
+			<i class="material-icons">edit_location</i>
+			<span>Mes villes</span>
+		</div>
+	</div>
 
 	<div class="card-child" ng-if="myVilles.length!=0">
 		<div class="row hover-link" ng-repeat="result in myVilles">
-			<span>{{result.nomAffiche}}</span>
 			<span>
-				<i class="material-icons" ng-click="toggleNotifications(result)">notifications_{{result.notifications?"active":"off"}}</i>
 				<i class="material-icons md-red" ng-click="unregisterVille(result)">delete</i>
+				<i class="material-icons" ng-click="toggleNotifications(result)">notifications_{{result.notifications?"active":"off"}}</i>
 			</span>
+			<span>{{result.nomAffiche}}</span>
 		</div>
 	</div>
 	<div class="card-child" ng-if="myVilles.length==0">
@@ -63,16 +68,15 @@
 		</div>
 	</div>
 
-	<div class="card-child grey" ng-if="Options.notifications.active">
+	<div class="card-child" ng-if="Options.notifications.active">
 		<div class="row row-title">
 			<i class="material-icons">notifications</i>
 			<span>Notifications</span>
 		</div>
 
 		<div class="row" ng-repeat="item in Options.notifications.list">
-			<input type="time" ng-model="item.heure" ng-change="saveNotifications()" style="border: none; outline: none; text-align: right;">
-			<!--<i class="material-icons">schedule</i>-->
 		 	<i class="material-icons md-red delete" ng-click="removeNotification(item)">delete</i>
+			<input type="time" ng-model="item.heure" ng-change="saveNotifications()" style="border: none; outline: none; text-align: right;">
 		</div>
 
 		<div class="row hover-link" ng-click="Options.notifications.list.push({ heure: undefined })">
