@@ -66,6 +66,19 @@ input.material {
 	outline: none;
 }
 
+input[type="time"] {
+    margin-top: -0.5em;
+}
+
+a {
+	display:flex;
+	width: 100%;
+
+	color: black;
+	text-decoration: none;
+	justify-content: space-between;
+}
+
 /* Liste "deroulante" */
 .list 
 {
@@ -86,6 +99,7 @@ input.material {
 .hover-rotate:hover { transform: rotate(90deg); }
 .hover-link { cursor: pointer; }
 .hover-link:hover { background:#ddd; }
+
 
 /* Autres */
 .grey { color: grey; }
@@ -157,9 +171,6 @@ input.material {
 
 .delete {
 	cursor: pointer;
-	font-size: 17px;
-    margin-bottom: 2px;
-    margin-right: 2px;
 }
 
 
