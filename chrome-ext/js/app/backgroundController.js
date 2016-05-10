@@ -1,13 +1,5 @@
-MeteoControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Villes', 'Meteo', 'meteoStorage', 'myChrome', function ($scope, $interval, Villes, Meteo, meteoStorage, myChrome) {
-
-	var setIcon = function () {
-		if (Status.pluie) { Status.icon = 'rain32'; }
-		if (!Status.pluie) { Status.icon = 'sun32'; }
-		
-		chrome.browserAction.setIcon({ path: 'img/'+Status.icon+'.png' });
-	};
-
-	$interval(function () {
+MeteoControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Villes', 'Meteo', 'Icone', 'meteoStorage', 'myChrome', function ($scope, $interval, Villes, Meteo, Icone, meteoStorage, myChrome) {
+	function action() {		
 		$scope.myVilles = meteoStorage.getVilles();
 		$scope.Options = meteoStorage.getOptions();
 		$scope.NotificationsList = $scope.Options.notifications.list;
@@ -20,10 +12,22 @@ MeteoControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Villes', 
 		}
 
 		var current = new Date(70, 0, 1, (new Date()).getHours(), (new Date()).getMinutes());
+		
+		var callbackIcone = function (ville) {
+			return function (result) {
+				ville.Meteo = result;
+
+				Icone.set(ville.Meteo.lastUpdate, ville.Meteo.dataCadran);
+			}
+		};
+
+
+		$scope.myVilles[0].Meteo.$promise.then(callbackIcone($scope.myVilles[0]));
+
 
 		if (!$scope.Options.notifications.active) return;
 
-		var callbackCreator = function (ville) {
+		var callbackNotify = function (ville) {
 			return function (result) {
 				ville.Meteo = result;
 				console.log(ville);
@@ -37,12 +41,15 @@ MeteoControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Villes', 
 
 				for (var i = $scope.myVilles.length - 1; i >= 0; i--) {
 					if ($scope.myVilles[i].notifications) {
-						var callback = callbackCreator($scope.myVilles[i]);
+						var callback = callbackNotify($scope.myVilles[i]);
 						$scope.myVilles[i].Meteo.$promise.then(callback);	
 					}				
 				}
 			}
 		}
+	};
 
-	}, 60*1000);
+	action();
+	
+	$interval(action, 60*1000);
 }]);
