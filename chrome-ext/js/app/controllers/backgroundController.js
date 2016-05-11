@@ -1,7 +1,6 @@
 MeteoControllers.controller('backgroundCtrl', 
 	['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'myChrome', 'Migration', 
 	function ($scope, $interval, Meteo, Icone, meteoStorage, myChrome, Migration) {
-
 		Migration.make();
 
 	function action() {		
@@ -20,7 +19,7 @@ MeteoControllers.controller('backgroundCtrl',
 		var callbackIcone = function (ville) {
 			return function (result) {
 				ville.Meteo = result;
-				Icone.set(ville.Meteo.lastUpdate, ville.Meteo.dataCadran);
+				Icone.set(ville.Meteo.lastUpdate, ville.Meteo.dataCadran, ville.nomAffiche);
 			}
 		};
 

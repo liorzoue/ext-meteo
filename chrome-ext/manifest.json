@@ -1,6 +1,6 @@
 {
 	"name" :"Pluie dans l'heure",
-	"version" :"1.5.2",
+	"version" :"1.5.5",
 	"manifest_version": 2,
 	"description" :"Va-t-il pleuvoir dans l'heure qui vient ?",
 	"browser_action" :
@@ -21,5 +21,5 @@
 		"128": "img/rain128.png"
 	},
 
-	"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

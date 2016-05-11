@@ -10,10 +10,11 @@ body {
 }
 
 .card {
-  box-shadow:0 1px 2px #aaa;
+  /*box-shadow:0 1px 2px #aaa; */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   background:white;
   margin:0 0.5rem 0.5rem;
-  border-radius:3px;
+  border-radius:2px;
   user-select:none;
   animation:fly-in-from-left .5s 1s ease both;
   transform-origin:top left;
@@ -66,8 +67,10 @@ input.material {
 	outline: none;
 }
 
-input[type="time"] {
-    margin-top: -0.5em;
+input[type=time]::-webkit-clear-button,
+input[type=time]::-webkit-outer-spin-button,
+input[type=time]::-webkit-inner-spin-button {
+    display:none;
 }
 
 a {
