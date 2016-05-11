@@ -1,4 +1,6 @@
 MeteoControllers.controller('defaultCtrl', ['$scope', '$location', 'Meteo', 'meteoStorage', 'myDateTime', function ($scope, $location, Meteo, meteoStorage, myDateTime) {
+	_gaq.push(['_trackPageview', '/']);
+
 	$scope.myVilles = meteoStorage.getVilles();
 	$scope.Options = meteoStorage.getOptions();
 	$scope.myDateTime = myDateTime;
