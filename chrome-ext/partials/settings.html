@@ -32,7 +32,7 @@
 		<div class="row hover-link" ng-repeat="result in myVilles">
 			<span>
 				<i class="material-icons md-red" ng-click="unregisterVille(result)">delete</i>
-				<i class="material-icons" ng-click="toggleNotifications(result)">notifications_{{result.notifications?"active":"off"}}</i>
+				<i class="material-icons" ng-click="toggleNotifications(result)" ng-if="Options.notifications.active">notifications_{{result.notifications?"active":"off"}}</i>
 			</span>
 			<span>{{result.nomAffiche}}</span>
 		</div>
