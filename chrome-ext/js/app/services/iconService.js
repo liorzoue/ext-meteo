@@ -1,4 +1,4 @@
-MeteoApp.factory('Icone', ['Manifest', 'myDateTime', function(Manifest, myDateTime) {
+MeteoApp.factory('Icone', ['Manifest', 'myDateTime', 'Browser', function(Manifest, myDateTime, Browser) {
 	var ManifestItem = Manifest.get();
 
 	function getProchainePrecipitation(time, cadran, ville) {
@@ -37,10 +37,10 @@ MeteoApp.factory('Icone', ['Manifest', 'myDateTime', function(Manifest, myDateTi
 			}
 
 		
-			chrome.browserAction.setIcon({ path: 'img/'+icon+'.png' });
-			chrome.browserAction.setBadgeText({text: item.heure.toString() });
-			chrome.browserAction.setBadgeBackgroundColor({ color: '#'+item.color });
-			chrome.browserAction.setTitle({ title: 'Pluie a ' + item.ville.toString()});
+			Browser.setIcon({ path: 'img/'+icon+'.png' });
+			Browser.setBadgeText({text: item.heure.toString() });
+			Browser.setBadgeBackgroundColor({ color: '#'+item.color });
+			Browser.setTitle({ title: 'Pluie a ' + item.ville.toString()});
 		}
 	}
 }]);
