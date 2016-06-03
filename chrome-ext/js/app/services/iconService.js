@@ -1,6 +1,7 @@
-MeteoApp.factory('Icone', ['myDateTime', function(myDateTime) {
+MeteoApp.factory('Icone', ['Manifest', 'myDateTime', 'Browser', function(Manifest, myDateTime, Browser) {
+	var ManifestItem = Manifest.get();
 
-	function getProchainePrecipitation(time, cadran) {
+	function getProchainePrecipitation(time, cadran, ville) {
 		var now = (new Date()).getHours()+ 'h' + (new Date()).getMinutes();
 		var lastUpdate = new Date(70, 0, 1, parseInt(time.split('h')[0], 10), parseInt(time.split('h')[1], 10));
 
@@ -8,7 +9,8 @@ MeteoApp.factory('Icone', ['myDateTime', function(myDateTime) {
 			pluie: false,
 			level: 0,
 			color: 'fff',
-			heure: new Date()
+			heure: new Date(),
+			ville: ''
 		};
 
 		for (i=0;i<12;i++) {
@@ -17,6 +19,7 @@ MeteoApp.factory('Icone', ['myDateTime', function(myDateTime) {
 				out.level = cadran[i].niveauPluie;
 				out.color = cadran[i].color;
 				out.heure = myDateTime.dateDiff(now, myDateTime.addMinutesToDate(time, i*5+5));
+				out.ville = ville;
 			}
 		}
 
@@ -24,8 +27,8 @@ MeteoApp.factory('Icone', ['myDateTime', function(myDateTime) {
 	}
 
 	return {
-		set: function (time, cadran) {
-			var item = getProchainePrecipitation(time, cadran);
+		set: function (time, cadran, ville) {
+			var item = getProchainePrecipitation(time, cadran, ville);
 			var icon = '';
 			if (item.pluie) { icon = 'rain32'; }
 			if (!item.pluie) {
@@ -34,9 +37,10 @@ MeteoApp.factory('Icone', ['myDateTime', function(myDateTime) {
 			}
 
 		
-			chrome.browserAction.setIcon({ path: 'img/'+icon+'.png' });
-			chrome.browserAction.setBadgeText({text: item.heure.toString() });
-			chrome.browserAction.setBadgeBackgroundColor({ color: '#'+item.color });
+			Browser.setIcon({ path: 'img/'+icon+'.png' });
+			Browser.setBadgeText({text: item.heure.toString() });
+			Browser.setBadgeBackgroundColor({ color: '#'+item.color });
+			Browser.setTitle({ title: 'Pluie a ' + item.ville.toString()});
 		}
 	}
 }]);

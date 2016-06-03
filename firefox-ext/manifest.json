@@ -1,0 +1,32 @@
+{
+	"name" :"Pluie dans l'heure",
+	"version" :"1.5.5",
+	"manifest_version": 2,
+	"description" :"Va-t-il pleuvoir dans l'heure qui vient ?",
+	"browser_action" :
+	{
+		"browser_style": true,
+		"default_popup" :"popup.html"
+	},
+	"permissions": [
+		"storage",
+		"background",
+		"notifications",
+		"http://www.meteofrance.com/"
+	],
+	"background": {
+		"page": "background.html"
+	},
+	"icons": { 
+		"32": "img/rain32.png",
+		"128": "img/rain128.png"
+	},
+
+	"applications": {
+		"gecko": {
+			"id": "pluie-heure@liorzou.bzh"
+		}
+	},
+
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}

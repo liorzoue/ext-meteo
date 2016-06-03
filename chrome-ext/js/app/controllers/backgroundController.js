@@ -1,8 +1,9 @@
 MeteoControllers.controller('backgroundCtrl', 
-	['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'myChrome', 'Migration', 
-	function ($scope, $interval, Meteo, Icone, meteoStorage, myChrome, Migration) {
-
-		Migration.make();
+	['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'Browser', 'Migration', 
+	function ($scope, $interval, Meteo, Icone, meteoStorage, Browser, Migration) {
+		
+	_gaq.push(['_trackEvent', 'background', 'load']);
+	Migration.make();
 
 	function action() {		
 		$scope.myVilles = meteoStorage.getVilles();
@@ -20,7 +21,7 @@ MeteoControllers.controller('backgroundCtrl',
 		var callbackIcone = function (ville) {
 			return function (result) {
 				ville.Meteo = result;
-				Icone.set(ville.Meteo.lastUpdate, ville.Meteo.dataCadran);
+				Icone.set(ville.Meteo.lastUpdate, ville.Meteo.dataCadran, ville.nomAffiche);
 			}
 		};
 
@@ -32,7 +33,7 @@ MeteoControllers.controller('backgroundCtrl',
 		var callbackNotify = function (ville) {
 			return function (result) {
 				ville.Meteo = result;
-				myChrome.notify(ville.nomAffiche, ville.Meteo.niveauPluieText[0], 'img/rain128.png');
+				Browser.notify(ville.nomAffiche, ville.Meteo.niveauPluieText[0], 'img/rain128.png');
 			}
 		};
 
