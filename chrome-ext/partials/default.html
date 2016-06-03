@@ -9,13 +9,13 @@
 			<span>Mise à jour : {{myVilles[0].Meteo.lastUpdate}}</span>
 		</div>
 
-		<div class="row grey hover-link" ng-click="openUrl('http://www.meteofrance.com/previsions-meteo-france/previsions-pluie/')" onclick="_gaq.push(['_trackEvent', 'btn-meteo-france', 'click']);"> 
+		<div class="row grey hover-link" ng-click="_gaq.push(['_trackEvent', 'btn-meteo-france', 'click']); openUrl('http://www.meteofrance.com/previsions-meteo-france/previsions-pluie/')"> 
 			<i class="material-icons">cloud_download</i>
 			<span>Source : Meteo France</span>
 		</div>
 
 		<div class="row hover-link">
-			<a class="" href="#/settings" onclick="_gaq.push(['_trackEvent', 'btn-settings', 'click']);"> <i class="material-icons">settings</i>
+			<a class="" href="#/settings" ng-click="_gaq.push(['_trackEvent', 'btn-settings', 'click']);"> <i class="material-icons">settings</i>
 				<span>Réglages</span>
 			</a>
 		</div>
