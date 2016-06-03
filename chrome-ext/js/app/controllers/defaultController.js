@@ -13,4 +13,8 @@ MeteoControllers.controller('defaultCtrl', ['$scope', '$location', 'Meteo', 'met
 	}
 
 	console.log($scope.myVilles);
+
+	$scope.openUrl = function (newURL) {
+		chrome.tabs.create({ url: newURL });
+	};
 }]);
