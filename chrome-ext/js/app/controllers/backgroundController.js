@@ -2,7 +2,6 @@ MeteoControllers.controller('backgroundCtrl',
 	['$scope', '$interval', 'Meteo', 'Icone', 'meteoStorage', 'Browser', 'Migration', 
 	function ($scope, $interval, Meteo, Icone, meteoStorage, Browser, Migration) {
 		
-	_gaq.push(['_trackEvent', 'background', 'load']);
 	Migration.make();
 
 	function action() {		
