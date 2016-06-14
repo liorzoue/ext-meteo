@@ -14,6 +14,11 @@
 			<span>Source : Meteo France</span>
 		</div>
 
+		<div class="row grey" ng-if="indispoCount()"> 
+			<i class="material-icons">warning</i>
+			<span>Certaines données sont indisponibles !</span>
+		</div>
+
 		<div class="row hover-link">
 			<a class="" href="#/settings" ng-click="_gaq.push(['_trackEvent', 'btn-settings', 'click']);"> <i class="material-icons">settings</i>
 				<span>Réglages</span>
