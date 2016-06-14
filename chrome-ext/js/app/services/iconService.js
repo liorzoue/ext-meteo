@@ -13,14 +13,17 @@ MeteoApp.factory('Icone', ['Manifest', 'myDateTime', 'Browser', function(Manifes
 			ville: ''
 		};
 
-		for (i=0;i<12;i++) {
-			if (cadran[i].niveauPluie > 1 && !out.pluie) {
+		var i = 0;
+		while(i<11 && !out.pluie)
+		{
+			if (cadran[i].niveauPluie > 1) {
 				out.pluie = true;
 				out.level = cadran[i].niveauPluie;
 				out.color = cadran[i].color;
 				out.heure = myDateTime.dateDiff(now, myDateTime.addMinutesToDate(time, i*5+5));
 				out.ville = ville;
 			}
+			i++;
 		}
 
 		return out;
