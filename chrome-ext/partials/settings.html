@@ -9,27 +9,14 @@
 <div class="card">
 
 	<div class="card-child">
-		<input class="material" ng-model="ville" ng-change="findVilles(ville)" placeholder="Ajoutez une ville..."></div>
-
-	<div class="card-child" ng-if="villesResult.length!=0">
-		<span class="list hover-link" ng-repeat="result in villesResult" ng-click="registerVille(result)">
-			{{result.nomAffiche}}
-			<br/>
-		</span>
-	</div>
-</div>
-
-<div class="card">
-
-	<div class="card-child">
 		<div class="row">
 			<i class="material-icons">edit_location</i>
 			<span>Mes villes</span>
 		</div>
 	</div>
 
-	<div class="card-child" ng-if="myVilles.length!=0">
-		<div class="row hover-link" ng-repeat="result in myVilles">
+	<div class="card-child" ng-if="myVilles.length!=0" dnd-list="myVilles">
+		<div class="row hover-link" ng-repeat="result in myVilles" dnd-draggable="result" dnd-effect-allowed="move">
 			<span>
 				<i class="material-icons md-red" ng-click="unregisterVille(result)">delete</i>
 				<i class="material-icons" ng-click="toggleNotifications(result)" ng-if="Options.notifications.active">notifications_{{result.notifications?"active":"off"}}</i>
@@ -39,6 +26,16 @@
 	</div>
 	<div class="card-child" ng-if="myVilles.length==0">
 		<i>Aucune ville sauvegardée !</i>
+	</div>
+
+	<div class="card-child">
+		<input class="material" ng-model="ville" ng-change="findVilles(ville)" placeholder="Ajoutez une ville..."></div>
+
+	<div class="card-child" ng-if="villesResult.length!=0">
+		<span class="list hover-link" ng-repeat="result in villesResult" ng-click="registerVille(result)">
+			{{result.nomAffiche}}
+			<br/>
+		</span>
 	</div>
 </div>
 
