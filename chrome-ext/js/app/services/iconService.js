@@ -33,9 +33,9 @@ MeteoApp.factory('Icone', ['Manifest', 'myDateTime', 'Browser', function(Manifes
 		set: function (time, cadran, ville) {
 			var item = getProchainePrecipitation(time, cadran, ville);
 			var icon = '';
-			if (item.pluie) { icon = 'rain32'; }
+			if (item.pluie) { icon = 'rain-32'; }
 			if (!item.pluie) {
-				icon = 'sun32';
+				icon = 'sun-32';
 				item.heure = '';
 			}
 

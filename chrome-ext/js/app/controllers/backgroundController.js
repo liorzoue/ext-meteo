@@ -32,7 +32,7 @@ MeteoControllers.controller('backgroundCtrl',
 		var callbackNotify = function (ville) {
 			return function (result) {
 				ville.Meteo = result;
-				Browser.notify(ville.nomAffiche, ville.Meteo.niveauPluieText[0], 'img/rain128.png');
+				Browser.notify(ville.nomAffiche, ville.Meteo.niveauPluieText[0], 'img/raindrop-512.png');
 			}
 		};
 

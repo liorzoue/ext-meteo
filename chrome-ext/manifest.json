@@ -17,8 +17,8 @@
 		"page": "background.html"
 	},
 	"icons": { 
-		"32": "img/rain32.png",
-		"128": "img/rain128.png"
+		"512": "img/raindrop-512.png",
+		"128": "img/raindrop-128.png"
 	},
 
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
